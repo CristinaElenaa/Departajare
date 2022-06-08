@@ -1,0 +1,91 @@
+﻿@model Departajare.ViewModels.MovieReviewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Movie</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Movie.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Movie.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Movie.ReleaseDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Movie.ReleaseDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Movie.Genre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Movie.Genre)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Movie.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Movie.Price)
+        </dd>
+    </dl>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>UserName</th>
+            <th>Date</th>
+            <th>Review</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Movie.Reviews)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DatePublished)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReviewText)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<form asp-action="Details">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <input hidden asp-for="@Model.Review.Id" />
+
+        <label asp-for="Review.UserName" class="control-label"></label>
+        <input asp-for="Review.UserName" class="form-control" />
+        <span asp-validation-for="Review.UserName" class="text-danger"></span>
+    </div>
+    <input hidden asp-for="@Model.Review.DatePublished" />
+    <input hidden asp-for="@Model.Review.MovieId" />
+    <div class="form-group">
+        <label asp-for="Review.ReviewText" class="control-label"></label>
+        <input asp-for="Review.ReviewText" class="form-control" />
+        <span asp-validation-for="Review.ReviewText" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Create Review" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Movie.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
